@@ -1,9 +1,9 @@
 package com.unique.library;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -16,20 +16,36 @@ import java.util.List;
 public abstract class TabViewAdapter extends RecyclerView.Adapter<TabViewAdapter.ViewHolder> {
 
     private List<Integer> images;
+    private OnItemSelectedListener mOnItemSelectedListener;
 
     public TabViewAdapter(Integer[] images) {
         this.images = new ArrayList<>(Arrays.asList(images));
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mImageView;
 
         public ViewHolder(TabViewItemWrapper view) {
             super(view);
             mImageView = (ImageView) view.getChildAt(0);
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (null != mOnItemSelectedListener)
+                mOnItemSelectedListener.onItemSelected(v, getPosition());
         }
     }
 
+    public void setOnItemClickListener(OnItemSelectedListener mOnItemClickListener) {
+        this.mOnItemSelectedListener = mOnItemClickListener;
+    }
+
+    public interface OnItemSelectedListener {
+        public void onItemSelected(View view, int position);
+    }
 
     @Override
     public TabViewAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {

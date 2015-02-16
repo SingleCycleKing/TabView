@@ -9,4 +9,5 @@
         android:id="@+id/my_tab"
         android:layout_width="100dp"
         android:layout_height="wrap_content" />
+
 </LinearLayout>

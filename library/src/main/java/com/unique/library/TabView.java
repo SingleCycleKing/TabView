@@ -33,6 +33,13 @@ public class TabView extends RecyclerView {
         transformationCamera = new Camera();
     }
 
+    public void setOnItemClickListener(TabViewAdapter.OnItemSelectedListener mOnItemClickListener) {
+        if (null != this.getAdapter()) {
+            TabViewAdapter tabViewAdapter = (TabViewAdapter) this.getAdapter();
+            tabViewAdapter.setOnItemClickListener(mOnItemClickListener);
+        }
+    }
+
     @Override
     public void setAdapter(Adapter adapter) {
         if (!(adapter instanceof TabViewAdapter)) {
